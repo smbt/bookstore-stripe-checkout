@@ -6,7 +6,7 @@ include 'books.php';
 
 $bookId = $_GET['bookId'];
 
-\Stripe\Stripe::setApiKey('');
+\Stripe\Stripe::setApiKey(getenv('STRIPE_SK_TEST'));
 
 $session = \Stripe\Checkout\Session::create([
     'payment_method_types' => ['card'],
