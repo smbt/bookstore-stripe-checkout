@@ -12,6 +12,7 @@
 <h1>Bookstore</h1>
 
 Vorgang wurde abgebrochen.
+<a href="index.php">Zurück zum Shop</a>
 
 
 </body>

@@ -11,8 +11,8 @@ $bookId = $_GET['bookId'];
 $session = \Stripe\Checkout\Session::create([
     'payment_method_types' => ['card'],
     'line_items' => [$books[$bookId]],
-    'success_url' => 'http://localhost/bookstore-stripe-checkout/success.php?session_id={CHECKOUT_SESSION_ID}',
-    'cancel_url' => 'http://localhost/bookstore-stripe-checkout/cancel.php',
+    'success_url' => getenv('BASE_URL') . 'success.php?session_id={CHECKOUT_SESSION_ID}',
+    'cancel_url' => getenv('BASE_URL') . 'cancel.php',
 ]);
 
 ?>
