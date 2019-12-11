@@ -25,10 +25,10 @@ $i = 0;
 foreach ($books as $book) {
     echo "<h2>". $book['name'] . "</h2>";
     echo "<a href='stripe_redirect.php?live=0&bookId=".$i."'>Buy now</a> <br>";
-    echo "<a href='stripe_redirect.php?live=1&bookId=".$i."'>Buy now Abnahme)</a>";
+    echo "<a href='stripe_redirect.php?live=1&bookId=".$i."'>Buy now (Abnahme)</a>";
     echo "<hr>";
     $i++;
-}
+	}
 ?>
 
 </body>

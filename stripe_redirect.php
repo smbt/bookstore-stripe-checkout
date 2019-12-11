@@ -39,7 +39,7 @@ $session = \Stripe\Checkout\Session::create([
 Sie werden zum Stripe-Checkout weitergeleitet....
 
 <script>
-    var stripe = Stripe('pk_test_Vg7Edirr7vBo0LEVAJyemfSC003eRzoEu9');
+    var stripe = Stripe('pk_test_j453Pz4LA81q2iapWd7ToXQC00P5329pC1');
     stripe.redirectToCheckout({
         sessionId: '<?php echo $session['id']; ?>'
     }).then(function (result) {
