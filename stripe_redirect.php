@@ -6,13 +6,18 @@ include 'books.php';
 
 $bookId = $_GET['bookId'];
 
-\Stripe\Stripe::setApiKey(getenv('STRIPE_SK_TEST'));
+if($_GET['live']) {
+    \Stripe\Stripe::setApiKey('sk_test_cKTdsg6dgKZU35CEen7nhPSo00tpg3mtQ8');
+
+} else {
+    \Stripe\Stripe::setApiKey('sk_test_cKTdsg6dgKZU35CEen7nhPSo00tpg3mtQ8');
+}
 
 $session = \Stripe\Checkout\Session::create([
     'payment_method_types' => ['card'],
     'line_items' => [$books[$bookId]],
-    'success_url' => getenv('BASE_URL') . 'success.php?session_id={CHECKOUT_SESSION_ID}',
-    'cancel_url' => getenv('BASE_URL') . 'cancel.php',
+    'success_url' => 'http://localhost/bookstore-stripe-checkout/' . 'success.php?session_id={CHECKOUT_SESSION_ID}',
+    'cancel_url' => 'http://localhost/bookstore-stripe-checkout/' . 'cancel.php',
 ]);
 
 ?>
