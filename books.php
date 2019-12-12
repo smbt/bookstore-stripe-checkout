@@ -7,6 +7,7 @@ $books = [
         'amount' => 4999,
         'currency' => 'eur',
         'quantity' => 1,
+        'stock' => 5,
     ],
     [
         'name' => 'JavaScript For Beginners',
@@ -15,5 +16,6 @@ $books = [
         'amount' => 3999,
         'currency' => 'eur',
         'quantity' => 1,
+        'stock' => 5,
     ]
 ];

@@ -1,8 +1,5 @@
 <?php
-
-require('stripe-php-master/init.php');
 include 'books.php';
-
 ?>
 
 <!doctype html>
@@ -23,13 +20,31 @@ include 'books.php';
 <?php
 $i = 0;
 foreach ($books as $book) {
-    echo "<h2>". $book['name'] . "</h2>";
-    echo "<a href='stripe_redirect.php?live=0&bookId=".$i."'>Buy now</a> <br>";
-    echo "<a href='stripe_redirect.php?live=1&bookId=".$i."'>Buy now (Abnahme)</a>";
+    echo "<h2>" . $book['name'] . "</h2>";
+    echo "Menge: <input id='count-" . $i . "' value='1'><br>";
+    echo "<button><a href='stripe_redirect.php?bookId=" . $i . "&count=1' book-id='" . $i . "' class='buy_button'>Buy now</a></button> <br>";
     echo "<hr>";
     $i++;
-	}
+}
 ?>
+
+<script>
+    links = document.querySelectorAll('.buy_button');
+    for (var i = 0; i < links.length; i++) {
+        var link = links[i];
+        var bookId = link.getAttribute('book-id');
+
+        link.addEventListener('click', function () {
+            var count = document.querySelector('#count-' + bookId).value;
+            link.href = 'stripe_redirect.php?bookId=' + bookId + '&count=' + count;
+            console.log(link);
+        });
+
+        console.log(bookId);
+        console.log(count);
+    }
+</script>
+
 
 </body>
 </html>

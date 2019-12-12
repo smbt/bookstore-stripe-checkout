@@ -1,24 +1,34 @@
 <?php
-// Set your secret key: remember to change this to your live secret key in production
-// See your keys here: https://dashboard.stripe.com/account/apikeys
+
+//require('../../payments/stripe-php-master/init.php');
 require('stripe-php-master/init.php');
 include 'books.php';
 
 $bookId = $_GET['bookId'];
+$count = $_GET['count'];
 
-if($_GET['live']) {
+if($count < $books[$bookId]['stock']) {
+    // Shop
     \Stripe\Stripe::setApiKey('sk_test_cKTdsg6dgKZU35CEen7nhPSo00tpg3mtQ8');
-
 } else {
-    \Stripe\Stripe::setApiKey('sk_test_cKTdsg6dgKZU35CEen7nhPSo00tpg3mtQ8');
+    // Großhändler
+    echo 'Nicht genügend auf Lager. Bestellung beim Großhändler.';
+    exit();
+//    \Stripe\Stripe::setApiKey('sk_test_cKTdsg6dgKZU35CEen7nhPSo00tpg3mtQ8');
 }
 
-$session = \Stripe\Checkout\Session::create([
-    'payment_method_types' => ['card'],
-    'line_items' => [$books[$bookId]],
-    'success_url' => 'http://localhost/bookstore-stripe-checkout/' . 'success.php?session_id={CHECKOUT_SESSION_ID}',
-    'cancel_url' => 'http://localhost/bookstore-stripe-checkout/' . 'cancel.php',
-]);
+unset($books[$bookId]['stock']);
+
+try {
+    $session = \Stripe\Checkout\Session::create([
+        'payment_method_types' => ['card'],
+        'line_items' => [$books[$bookId]],
+        'success_url' => 'http://localhost/bookstore-stripe-checkout/' . 'success.php?session_id={CHECKOUT_SESSION_ID}',
+        'cancel_url' => 'http://localhost/bookstore-stripe-checkout/' . 'cancel.php',
+    ]);
+} catch (\Stripe\Exception\ApiErrorException $e) {
+    echo "Error in Session::create()";
+}
 
 ?>
 
